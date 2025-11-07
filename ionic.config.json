@@ -1,0 +1,7 @@
+{
+  "name": "Csrsss-novo",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
