@@ -1,0 +1,165 @@
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80%;
+  text-align: center;
+  color: var(--ion-color-medium);
+}
+
+.loading-container p {
+  margin-top: 10px;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.recipe-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding: 0 16px 24px 16px;
+  border-bottom: 1px solid var(--ion-color-tertiary-shade); // Borda Bege
+}
+
+.recipe-main-image {
+  width: 100%;
+  max-width: 450px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 1px solid var(--ion-color-tertiary-shade); // Borda Bege
+  aspect-ratio: 16/10;
+}
+
+.recipe-header-info {
+  width: 100%;
+  text-align: center;
+}
+
+.recipe-main-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--ion-color-secondary); // Cinza Escuro
+  line-height: 1.3;
+}
+
+.recipe-meta {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.recipe-date {
+  font-size: 0.85rem;
+  color: var(--ion-color-medium);
+}
+
+ion-button[color="danger"] {
+  --border-radius: 10px;
+  font-weight: 600;
+  margin: 0 16px 24px 16px;
+}
+
+ion-card {
+  border-radius: 12px;
+  border: 1px solid var(--ion-color-tertiary-shade); // Borda Bege
+  box-shadow: none;
+  margin: 0 16px 20px 16px;
+}
+
+ion-card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--ion-color-primary); // Terracota
+}
+
+.ingredients-card {
+  ion-list {
+    padding: 0;
+  }
+
+  ion-item {
+    --padding-start: 16px;
+    --inner-padding-end: 16px;
+    --background: #ffffff;
+    --border-color: var(--ion-color-tertiary-shade); // Borda Bege
+
+    h3 {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--ion-color-secondary); // Cinza Escuro
+    }
+
+    p {
+      font-size: 0.9rem;
+      color: var(--ion-color-medium);
+    }
+
+    ion-badge {
+      font-size: 0.8rem;
+    }
+
+    &:nth-child(even) {
+      --background: var(--ion-color-tertiary); // Fundo Bege
+    }
+  }
+}
+
+.instructions-card {
+  .instructions-text {
+    white-space: pre-line;
+    line-height: 1.6;
+    font-size: 1rem;
+    color: var(--ion-color-secondary); // Cinza Escuro
+  }
+}
+
+.tags-card {
+  .tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  ion-chip {
+    --background: var(--ion-color-tertiary); // Fundo Bege
+    --color: var(--ion-color-secondary); // Texto Cinza Escuro
+    font-weight: 500;
+  }
+}
+
+.back-button {
+  margin: 16px;
+  --border-radius: 10px;
+  font-weight: 600;
+}
+
+.not-found-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 16px;
+  min-height: 50vh;
+}
+
+.not-found-container h2 {
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+  color: var(--ion-color-danger);
+}
+
+.not-found-container p {
+  font-size: 1rem;
+  margin-bottom: 16px;
+  color: var(--ion-color-medium);
+}

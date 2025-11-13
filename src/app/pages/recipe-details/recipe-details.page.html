@@ -1,0 +1,102 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/recipes"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ recipe?.strMeal || 'Recipe Details' }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="loading-container" *ngIf="loading">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Loading recipe details...</p>
+  </div>
+
+  <ng-container *ngIf="!loading && recipe">
+    <div class="recipe-header" appHighlight [highlightColor]="'#fff9e6'">
+      <img *ngIf="recipe.strMealThumb" [src]="recipe.strMealThumb" [alt]="recipe.strMeal" class="recipe-main-image">
+      <div class="recipe-header-info">
+        <h1 class="recipe-main-title">{{ recipe.strMeal }}</h1>
+        <div class="recipe-meta">
+          <ion-chip *ngIf="recipe.strCategory" color="primary">
+            <ion-icon name="restaurant-outline" aria-label="Category icon"></ion-icon>
+            <ion-label>{{ recipe.strCategory | uppercase }}</ion-label>
+          </ion-chip>
+
+          <ion-chip *ngIf="recipe.strArea" color="secondary">
+            <ion-icon name="location-outline" aria-label="Origin icon"></ion-icon>
+            <ion-label>{{ recipe.strArea | uppercase }}</ion-label>
+          </ion-chip>
+        </div>
+        <p class="recipe-date">
+          Viewed on: {{ currentDate | date:'dd/MM/yyyy' }} at {{ currentDate | date:'HH:mm' }}
+        </p>
+      </div>
+    </div>
+
+    <ion-button expand="block" color="danger" *ngIf="recipe.strYoutube" (click)="openYouTubeVideo()" appHighlight [highlightColor]="'#ffebee'">
+      <ion-icon name="play-circle-outline" slot="start" aria-label="Play video icon"></ion-icon>
+      Watch on YouTube
+    </ion-button>
+
+    <ion-card *ngIf="ingredients.length > 0" class="ingredients-card">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="list-outline" aria-label="Ingredients list icon"></ion-icon>
+          Ingredients
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-item *ngFor="let item of ingredients; let i = index" appHighlight [highlightColor]="i % 2 === 0 ? '#f5f5f5' : '#ffffff'">
+            <ion-label>
+              <h3>{{ item.ingredient | uppercase }}</h3>
+              <p *ngIf="item.measure">{{ item.measure }}</p>
+            </ion-label>
+            <ion-badge slot="end" color="primary">{{ i + 1 }}</ion-badge>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card *ngIf="recipe.strInstructions" class="instructions-card">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="book-outline" aria-label="Instructions icon"></ion-icon>
+          Instructions
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="instructions-text">{{ recipe.strInstructions }}</div>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card *ngIf="recipe.strTags" class="tags-card">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="pricetags-outline" aria-label="Tags icon"></ion-icon>
+          Tags
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="tags-container">
+          <ion-chip *ngFor="let tag of recipe.strTags.split(',')" color="tertiary" appHighlight [highlightColor]="'#e8eaf6'">
+            <ion-label>{{ tag.trim() | uppercase }}</ion-label>
+          </ion-chip>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-button expand="block" fill="outline" (click)="goBack()" class="back-button">
+      <ion-icon name="arrow-back-outline" slot="start" aria-label="Back arrow icon"></ion-icon>
+      Back
+    </ion-button>
+  </ng-container>
+
+  <div class="not-found-container" *ngIf="!loading && !recipe">
+    <h2>Recipe not found</h2>
+    <p>The requested recipe is not available.</p>
+    <ion-button fill="outline" (click)="goBack()">Back</ion-button>
+  </div>
+</ion-content>

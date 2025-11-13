@@ -1,0 +1,53 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      {{ category ? ('Recipes - ' + (category | uppercase)) : 'All Recipes' }}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="loading-container" *ngIf="loading">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Loading recipes...</p>
+  </div>
+
+  <div class="empty-container" *ngIf="!loading && recipes.length === 0 && errorMessage">
+    <ion-icon name="search-outline" class="empty-icon" aria-label="Search icon"></ion-icon>
+    <h3>No recipes found</h3>
+    <p>{{ errorMessage }}</p>
+    <ion-button fill="outline" (click)="goHome()">Back to Home</ion-button>
+  </div>
+
+  <ion-grid class="recipes-grid" *ngIf="!loading && recipes.length > 0">
+    <ion-row>
+      <ion-col *ngFor="let recipe of recipes" size="12" size-md="6" size-lg="4">
+        <ion-card
+          appHighlight
+          [highlightColor]="'#eef5ff'"
+          (click)="navigateToRecipeDetails(recipe.idMeal)"
+          class="recipe-card"
+        >
+          <img [src]="recipe.strMealThumb" [alt]="recipe.strMeal" class="recipe-image">
+
+          <ion-card-header>
+            <ion-card-title class="recipe-title">{{ recipe.strMeal }}</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <p class="recipe-info" *ngIf="recipe.strCategory"><strong>Category:</strong> {{ recipe.strCategory | uppercase }}</p>
+            <p class="recipe-info" *ngIf="recipe.strArea"><strong>Origin:</strong> {{ recipe.strArea | uppercase }}</p>
+            <p class="recipe-info" *ngIf="recipe.strTags"><strong>Tags:</strong> {{ recipe.strTags | truncate:30 }}</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div class="recipes-count" *ngIf="!loading && recipes.length > 0">
+    <p>Total recipes found: <strong>{{ recipes.length }}</strong></p>
+  </div>
+</ion-content>

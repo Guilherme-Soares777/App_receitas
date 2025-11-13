@@ -1,0 +1,85 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>
+      <ion-icon name="restaurant-outline" aria-label="Recipe book icon"></ion-icon>
+      Homemade Recipes
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Homemade Recipes</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="categories-section" *ngIf="!loading && categories.length > 0">
+    <h2 class="section-title">
+      <ion-icon name="grid-outline" aria-label="Categories icon"></ion-icon>
+      Categories
+    </h2>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col *ngFor="let category of categories" size="6" size-md="4" size-lg="3">
+          <ion-card
+            appHighlight
+            [highlightColor]="'#fff1d6'"
+            (click)="navigateToCategory(category.strCategory)"
+            class="category-card"
+          >
+            <ion-card-header>
+              <ion-card-title class="category-title">
+                {{ category.strCategory | uppercase }}
+              </ion-card-title>
+            </ion-card-header>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <div class="button-container">
+      <ion-button expand="block" fill="outline" (click)="navigateToRecipes()" class="view-all-button">
+        View All Recipes
+      </ion-button>
+    </div>
+  </div>
+
+  <div class="featured-section" *ngIf="featuredRecipes.length > 0">
+    <h2 class="section-title">
+      <ion-icon name="flame-outline" aria-label="Featured icon"></ion-icon>
+      Featured
+    </h2>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col *ngFor="let recipe of featuredRecipes" size="12" size-md="6" size-lg="3">
+          <ion-card
+            appHighlight
+            [highlightColor]="'#e8f3ff'"
+            (click)="navigateToRecipeDetails(recipe.idMeal)"
+            class="recipe-card"
+          >
+            <img [src]="recipe.strMealThumb" [alt]="recipe.strMeal" class="recipe-image">
+
+            <ion-card-header>
+              <ion-card-title class="recipe-title">
+                {{ recipe.strMeal }}
+              </ion-card-title>
+            </ion-card-header>
+
+            <ion-card-content *ngIf="recipe.strCategory">
+              <p class="recipe-category">{{ recipe.strCategory }}</p>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <div class="loading-container" *ngIf="loading">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Loading...</p>
+  </div>
+</ion-content>
